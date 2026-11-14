@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="uz"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Writing BS</title><meta name="theme-color" content="#14213d"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Writing BS"><link rel="manifest" href="manifest.webmanifest"><link rel="icon" href="icons/icon.svg" type="image/svg+xml"><link rel="alternate icon" href="icons/favicon-32.png" sizes="32x32"><link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,600;7..72,800&family=Manrope:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f3f5f9;--sf:#fff;--ink:#14213d;--mut:#5a6785;--ln:#d9deea;--hl:#ffd23f;--ac:#2f5bea;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e1528;--sf:#16203a;--ink:#eef1f8;--mut:#9aa6c4;--ln:#27345a;--ac:#7c9cff;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0e1528;--sf:#16203a;--ink:#eef1f8;--mut:#9aa6c4;--ln:#27345a;--ac:#7c9cff;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.55 Manrope,system-ui,sans-serif}
+.w{max-width:720px;margin:0 auto;padding:18px 16px 96px}
+h1,h2,h3{font-family:Literata,Georgia,serif;margin:0;line-height:1.2}
+h1{font-size:30px;font-weight:800}
+h1 span{background:linear-gradient(transparent 58%,var(--hl) 58%,var(--hl) 92%,transparent 92%);padding:0 3px}
+h2{font-size:24px;font-weight:800}h3{font-size:17px;font-weight:600}
+.hd{display:flex;justify-content:space-between;align-items:flex-end;gap:10px;margin-bottom:16px}
+.mut{color:var(--mut);font-size:14px}
+.kp{text-align:right;font-size:14px;color:var(--mut)}.kp b{font-size:22px;color:var(--ink);font-family:Literata,serif}
+.card{background:var(--sf);border:1px solid var(--ln);border-radius:14px;padding:16px;margin-bottom:14px}
+.top{display:flex;justify-content:space-between;gap:10px;align-items:flex-start;margin-bottom:12px}
+.chip{color:#fff;font-weight:700;font-size:13px;border-radius:99px;padding:4px 12px;white-space:nowrap}
+blockquote{margin:0 0 14px;padding:10px 14px;border-left:5px solid var(--hl);background:var(--bg);border-radius:0 10px 10px 0}
+.steps{margin:0;padding:0;list-style:none}
+.steps li{padding:8px 0;border-top:1px solid var(--ln);font-size:15px}.steps li:first-child{border:0}
+.steps b{display:inline-block;min-width:54px;color:var(--ac)}
+.tm{text-align:center}
+#tt{font:800 56px/1 Literata,serif;font-variant-numeric:tabular-nums;margin:6px 0}
+#tp{min-height:44px;font-size:14px;color:var(--mut)}
+.row{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+button,input,textarea{font:inherit;color:inherit}
+button{cursor:pointer;border:1px solid var(--ln);background:var(--sf);border-radius:10px;padding:10px 16px;font-weight:700;min-height:44px}
+button:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid var(--ac);outline-offset:2px}
+.pri{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.ok{background:var(--hl);color:#14213d;border-color:var(--hl)}
+input,textarea{width:100%;border:1px solid var(--ln);background:var(--bg);border-radius:10px;padding:10px 12px}
+label{display:block;font-size:14px;color:var(--mut);margin:10px 0 4px}
+.grid{display:grid;grid-template-columns:repeat(10,1fr);gap:4px}
+.wk{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-bottom:12px}
+.c{padding:0;min-height:0;aspect-ratio:1;border-radius:6px;background:var(--bg);border:1px solid var(--ln);font-size:11px;line-height:1.1;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.wk .c{aspect-ratio:auto;min-height:52px}.c b{font-size:15px}
+.c.now{box-shadow:0 0 0 2px var(--hl)}.c.sel{outline:2px solid var(--ac)}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:14px}
+.stats div{background:var(--sf);border:1px solid var(--ln);border-radius:12px;padding:10px 6px;text-align:center;font-size:12px;color:var(--mut)}
+.stats b{display:block;font:800 22px Literata,serif;color:var(--ink)}
+.bar{height:8px;background:var(--bg);border-radius:9px;overflow:hidden;margin:4px 0 10px}.bar i{display:block;height:100%;background:var(--ac)}
+.adv{padding:10px 12px;border-left:5px solid var(--ac);background:var(--bg);border-radius:0 10px 10px 0;margin-bottom:8px;font-size:15px}
+.tabs{position:fixed;left:0;right:0;bottom:0;display:flex;background:var(--sf);border-top:1px solid var(--ln);padding:6px 8px calc(6px + env(safe-area-inset-bottom,0px));gap:6px;z-index:5}
+.tabs button{flex:1;border:0;background:none}.tabs .on{background:var(--hl);color:#14213d}
+svg text{fill:var(--mut);font-size:9px}
+.sc{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
+.s2{background:var(--hl)!important;color:#14213d!important;border-color:var(--hl)!important}
+.bk{display:block;width:100%;text-align:left;font-weight:400;margin-bottom:8px;line-height:1.5}
+summary{cursor:pointer;min-height:32px}details{margin-top:8px}
+textarea{resize:vertical}
+</style></head><body>
+<div class="w"><div class="hd"><div><h1><span>Writing BS</span></h1><div class="mut">Kuniga 25 daqiqa. 100 kun.</div></div><div class="kp" id="kp"></div></div><div id="app"></div></div>
+<nav class="tabs" id="tabs"></nav>
+<script>
+const CL={M:"#e5484d",N:"#2f5bea",Q:"#12a37f",T:"#a45cf0",S:"#e08a00"};
+const MN={M:"Material",N:"Namuna tahlili",Q:"Qurish",T:"Tahrir",S:"Haftalik sharh"};
+const WD=["Yakshanba","Dushanba","Seshanba","Chorshanba","Payshanba","Juma","Shanba"],WS=["Ya","Du","Se","Ch","Pa","Ju","Sh"];
+const WK=["S","M","N","Q","T","M","Q"];
+const PH=["Poydevor: material va namunalar","Qurilish: toʻliq qoralamalar","Sayqal: DS inshosi va topshirishga tayyorlik"];
+const ST={
+M:[[3,"Oldingi sessiya yozuvi va Xatolar daftaridagi 1 maqsadni oʻqing."],[10,"Toʻxtamay yozing (imlo muhim emas): qayerda, nima qildingiz, nima boʻldi."],[7,"4 qatorga tuzing: sahna / harakat / natija / nimani tushundim."],[5,"Xatolar daftariga 1 qator yozing, keyingi qadamni belgilang."]],
+N:[[3,"Oldingi yozuvingiz va Xatolar daftarini koʻzdan kechiring."],[10,"Bitta kuchli insho yoki SOP namunasini oʻqing (MIT Admissions blogi, kollejlar e’lon qilgan insholar)."],[7,"Har paragrafni 1 jumlada umumlashtiring (reverse outline), soʻng bitta paragraf tuzilmasini oʻz mavzuingizga koʻchiring."],[5,"Nimani oʻrgandingiz? 1 qator yozing."]],
+Q:[[3,"Tanlangan kartani oʻqing, bitta asosiy fikrni belgilang."],[3,"Reja: sahna → savol → harakat → xulosa."],[14,"Qoralamani toʻxtamay yozing."],[5,"Soʻzlarni sanang, eng zaif joyni Xatolar daftariga yozing."]],
+T:[[3,"Qoralama va oldingi feedbackni oʻqing."],[7,"Kesish: ortiqcha soʻz, passiv nisbat, mavhum iboralar."],[10,"Feedbackni qoʻllang yoki qoralamani yuboring."],[5,"Nima oʻzgardi? 1 qator yozing."]],
+S:[[3,"Hafta yozuvlarini varaqlang."],[10,"Eng yaxshi jumlani tanlang va nega yaxshiligini yozing."],[7,"5 mezon boʻyicha oʻzingizni 1–4 ball bilan baholang: aniqlik, tushuncha, ovoz, ixchamlik, tuzilma."],[5,"Keyingi hafta maqsadini Xatolar daftariga yozing."]]};
+const PM=["Oxirgi marta biror narsani tushunmaguningizcha urinib koʻrgan lahza.","Ma’lumot (sanash, taqqoslash, jadval) bilan muammo hal qilishga urinish.","Xato qilgan va undan oʻrgangan paytingiz.","Sizni “nega?” deb oʻylantirgan kuzatuv.","Mustaqil oʻrgangan narsangiz: qanday topdingiz, nima qiyin boʻldi.","Kimgadir biror narsani tushuntirgan lahza.","Raqamlar fikringizni oʻzgartirgan voqea.","Data science’ga qiziqishingiz paydo boʻlgan sahna."];
+const FN=["Ochilish jumlasi","Aniq otlar va fe’llar","Burilish nuqtasi","Oxirgi jumla","Ovoz: bu kim yozgan?","Mavhum fikr aniq misolga aylangan joy"];
+const PQ=["Kartadan 300 soʻzli sahna: sahna → savol → harakat → xulosa.","Kartadan 650 soʻzli qoralama: sahna → ziddiyat → harakat → tushuncha → data science’ga koʻprik.","“Nega data science?” 250 soʻz: bitta aniq lahza yoki loyiha + kelajak maqsad."];
+const PT=["Eng yaxshi kartangizdan 2 jumlani 20% qisqartiring; mavhum soʻzni aniq harakat bilan almashtiring.","Qoralamani tashqi odamga yuboring (oʻqituvchi, tengdosh, mentor yoki Claude), feedbackdan 3 ta oʻzgartirish qiling.","Finalist inshoni 48 soat dam bergach qayta oʻqing: ortiqcha 10% ni kesing, ochilish va yakun jumlasini kuchaytiring."];
+const $=s=>document.querySelector(s);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const iso=d=>d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
+let S={start:iso(new Date()),days:{}};
+try{const r=localStorage.getItem("wbs1");if(r)S=Object.assign(S,JSON.parse(r))}catch(e){}
+const save=()=>{try{localStorage.setItem("wbs1",JSON.stringify(S))}catch(e){}};
+const tIdx=()=>{const a=new Date(S.start+"T00:00:00"),b=new Date();b.setHours(0,0,0,0);return Math.round((b-a)/864e5)};
+let sel=Math.min(Math.max(tIdx(),0),99),view="today",rs=0;
+function plan(i){
+ const d=new Date(S.start+"T00:00:00");d.setDate(d.getDate()+i);
+ const wd=d.getDay(),m=WK[wd],k=Math.floor(i/7),ph=k<4?0:k<9?1:2;
+ let title=MN[m],pr,st=ST[m];
+ if(m==="M")pr=PM[(k+wd)%PM.length];
+ if(m==="N")pr="Diqqat markazi: "+FN[(k+wd)%FN.length]+".";
+ if(m==="Q")pr=PQ[ph];
+ if(m==="T")pr=PT[ph];
+ if(m==="S")pr="Haftaning yakuni: baholang, tanlang, reja tuzing.";
+ if(i===0){title="Boshlangʻich insho (baseline)";pr="“Nega data science?” mavzusida 25 daqiqa ichida 300 soʻz yozing. Tahrir qilmang. 50- va 100-kunlarda shu mavzuni qayta yozib solishtirasiz.";st=[[25,"Toʻxtamay yozing va matnni saqlab qoʻying."]]}
+ if(i===49||i===99){title="Baseline’ni qayta yozish";pr="Birinchi kundagi mavzuni (“Nega data science?”) qayta yozing va 1-kundagi matn bilan solishtiring.";st=[[5,"1-kundagi matnni oʻqing."],[17,"Mavzuni yangidan yozing (300 soʻz)."],[3,"Farqlarni 3 qatorda yozing."]]}
+ return{i,wd,m,ph,title,pr,st,ds:iso(d)};
+}
+const done=i=>!!(S.days[i]&&S.days[i].d);
+let TM={run:false,end:0,left:1500e3,iv:0};
+function beep(){try{const a=new(window.AudioContext||window.webkitAudioContext)();[0,.3,.6].forEach(t=>{const o=a.createOscillator(),g=a.createGain();o.connect(g);g.connect(a.destination);o.frequency.value=880;g.gain.value=.2;o.start(a.currentTime+t);o.stop(a.currentTime+t+.2)})}catch(e){}}
+function tick(){
+ if(TM.run){TM.left=Math.max(0,TM.end-Date.now());if(!TM.left){TM.run=false;clearInterval(TM.iv);beep();try{navigator.vibrate&&navigator.vibrate([300,150,300,150,300])}catch(e){}try{new Notification("Writing BS",{body:"25 daqiqa tugadi. Sessiyani yakunlang."})}catch(e){}}}
+ const el=$("#tt");if(!el)return;
+ const l=Math.ceil(TM.left/1e3),txt=String(Math.floor(l/60)).padStart(2,"0")+":"+String(l%60).padStart(2,"0");
+ el.textContent=txt;document.title=TM.run?txt+" · Writing BS":"Writing BS";
+ const st=plan(sel).st,el2=1500e3-TM.left;let c=0,k=st.length-1;
+ for(let j=0;j<st.length;j++){c+=st[j][0]*60e3;if(el2<c){k=j;break}}
+ $("#tp").textContent=TM.left?(TM.run||el2>0?(k+1)+"/"+st.length+": "+st[k][1]:"Tayyor boʻlsangiz, boshlang."):"Vaqt tugadi.";
+ $("#tb").textContent=TM.run?"Pauza":(el2>0&&TM.left?"Davom etish":"Boshlash");
+}
+function tStart(){
+ if(TM.run){TM.run=false;clearInterval(TM.iv);tick();return}
+ if(!TM.left)TM.left=1500e3;
+ TM.end=Date.now()+TM.left;TM.run=true;clearInterval(TM.iv);TM.iv=setInterval(tick,250);
+ try{if(window.Notification&&Notification.permission==="default")Notification.requestPermission()}catch(e){}
+ try{navigator.wakeLock&&navigator.wakeLock.request("screen").catch(()=>{})}catch(e){}
+ tick();
+}
+function tReset(){TM.run=false;clearInterval(TM.iv);TM.left=1500e3;tick()}
+function go(i){sel=i;view="today";render();window.scrollTo(0,0)}
+function vPlan(){
+ let h='<div class="mut" style="margin-bottom:12px">Reja haftaning kunlariga joylangan: Du/Chor — material, Se — namuna, Chor/Sh — qurish, Pa — tahrir, Ya — sharh. Kun oʻtkazib yuborsangiz, keyingisiga surilmaydi: istalgan kunni bosib bajarishingiz mumkin.</div>';
+ const lg=Object.keys(MN).map(k=>'<span class="chip" style="background:'+CL[k]+';margin-right:4px">'+k+" "+MN[k]+"</span>").join("");
+ h+='<div style="margin-bottom:14px;display:flex;flex-wrap:wrap;gap:6px">'+lg+"</div>";
+ for(let k=0;k<15;k++){
+  if(k===0||k===4||k===9)h+='<h3 style="margin:16px 0 8px">'+PH[k<4?0:k<9?1:2]+"</h3>";
+  let c="";for(let i=k*7;i<Math.min(100,k*7+7);i++)c+=cell(i,1);
+  h+='<div class="mut">Hafta '+(k+1)+'</div><div class="wk">'+c+"</div>";
+ }
+ return h;
+}
+function imp(){try{const o=JSON.parse($("#bk").value);if(o&&o.start&&o.days){S=o;save();render()}}catch(e){$("#bk").value="Format notoʻgʻri. Zaxira nusxani aynan nusxalab yopishtiring."}}
+function rst(){const b=$("#rb");if(rs++){S={start:iso(new Date()),days:{}};save();rs=0;sel=0;render()}else b.textContent="Tasdiqlang: hammasi oʻchadi"}
+const RB=["Boshladim, lekin 5 daqiqadan kam ishladim.","Qisman bajardim, tez chalgʻidim.","Vaqtning yarmini ishlatdim, qadamlar tashlandi.","Koʻp qadam bajarildi, lekin diqqat past edi.","Hamma qadam bajarildi, ammo rasmiy, ichki fikrsiz.","Bajardim va 1 ta aniq natija bor (jumla, karta yoki qoralama).","Yaxshi: aniq natija bor va Xatolar daftari toʻldirildi.","Juda yaxshi: aniq misollar yozdim va 1 ta kamchiligimni topdim.","Aʼlo: natijani qayta yozdim va oldingisidan yaxshiroq ekanini koʻrdim.","Ideal: toʻliq diqqat, sifatli natija va tashqi feedback yoki aniq taqqoslash bor."];
+const TIER=["Past natija odatiy holat. Sababini toping: chalgʻituvchi nima edi? Keyingi sessiyani telefonsiz, 15 daqiqalik minimal versiyada boshlang.","Qoniqarli, lekin natija yetarli aniq emas. Keyingi safar sessiya oxirida 1 ta aniq jumla yoki karta chiqarishni maqsad qiling.","Yaxshi natija. Endi bitta narsani yaxshilang: bugungi eng zaif jumlani qayta yozing.","Aʼlo sifat. Bu yozuv Bankda saqlanadi; uni tashqi odamga koʻrsatishni rejalashtiring."];
+const MT={M:"Material: “fikr”ni emas, lahzani yozing: kim, qayerda, nima qildi yoki dedi.",N:"Namuna: faqat oʻqib chiqmang, har paragrafning vazifasini 1 jumlada yozing.",Q:"Qurish: avval bitta asosiy fikrni 1 jumlada yozing, keyin qoralama.",T:"Tahrir: avval kesing, keyin yangi narsa qoʻshing.",S:"Sharh: ball bilan birga 1 ta dalil (jumla) yozing."};
+const LS={
+M:[{t:"Lahza, mavzu emas",b:"“Men yetakchiman” — mavzu. “Kechki 11 da jadvalni qayta tuzdim, chunki 3 ta ustun mos kelmasdi” — lahza. Insho lahzadan boshlanadi."},{t:"Sezgi detallari",b:"Sahnaga kamida 2 ta sezgi qoʻshing: nimani koʻrdingiz, eshitdingiz, qoʻlingizda nima bor edi. Aniq detal ishonch yaratadi."},{t:"Uch savol",b:"Har kartaga 3 savol bering: Nimani bilmasdim? Nima qildim? Endi nimani boshqacha qilaman? Uchinchisi insho yuragi."}],
+N:[{t:"Paragraf vazifasi",b:"Har paragrafning bitta vazifasi bor: sahna ochish, burilish yoki tushuncha. Vazifani yozolmasangiz, paragraf ortiqcha."},{t:"Ochilish jumlasi",b:"Kuchli ochilish sahna yoki savol bilan boshlanadi, taʼrif bilan emas. Oʻqigan insholaringizda ochilish turini belgilang."},{t:"Nima yoʻq?",b:"Kuchli insholarda “men ajoyib yetakchiman” degan jumla yoʻq, harakat bor. Namunadan 3 ta aniq harakatni ajrating."}],
+Q:[{t:"Bitta fikr",b:"650 soʻz = 1 asosiy fikr. Fikrni 1 jumlada yozolmasangiz, qoralamani boshlamang."},{t:"Ziddiyat",b:"Hikoyaga kuch beradigan narsa ziddiyat: nimani xohladingiz va nima toʻsiq boʻldi."},{t:"Data science koʻprigi",b:"Oxirida “data science qiziq” demang. Hikoyadagi savol qaysi maʼlumot savoliga aylanganini koʻrsating."}],
+T:[{t:"Kesish qoidasi",b:"Har jumlani bir marta kesib koʻring: very, really, I think kabi soʻzlar va takror fikrlar. Maʼno yoʻqolmasa, kesing."},{t:"Aniq ot, faol fe’l",b:"“A decision was made” → “I chose”. Faol nisbat harakatni koʻrsatadi, aniq ot tasvirni."},{t:"Feedback soʻrash",b:"Oʻqiyotgandan 3 savol soʻrang: Qayerda zerikdingiz? Qaysi jumla yodingizda qoldi? Menga nima yetishmadi?"}],
+S:[{t:"Dalilli baho",b:"Ball + dalil: “7, chunki 2 ta aniq sahna yozdim”. Dalilsiz ball shunchaki his."},{t:"Bitta maqsad",b:"Bir hafta = 1 maqsad. Koʻp xatoni emas, bittasini tuzating; keyingi hafta navbatdagisini."}]};
+function lsx(l){return(l.e?'<div class="adv" style="margin-top:10px"><b>Oldin → keyin:</b> '+l.e+"</div>":"")+(l.m?'<div class="adv"><b>Mini mashq:</b> '+l.m+"</div>":"")}
+LS.M.push(
+{t:"Loyihadan lahza",b:"Data loyihangizdan natijani emas, qaror lahzasini oling: qaysi ustunni tashladingiz va nega.",e:"“I cleaned the data.” → “I deleted 212 rows with missing ages, then wondered whom I had just erased.”",m:"3 daq: oxirgi loyihangizdan 1 ta qarorni yozing. 2 daq: uning sababini yozing."},
+{t:"Xato kartasi",b:"Xatolar kuchli material: nima kutdingiz, nima boʻldi, nimani oʻzgartirdingiz.",e:"“I learned from failure.” → “My model scored 98% because I had fed it the answer column.”",m:"4 daq: eng kulgili xatongizni 3 jumlada yozing."},
+{t:"Dialog parchasi",b:"Bir ogʻiz gap sahnani jonlantiradi. Kimdir nima dedi? Aynan soʻzlarini yozing.",e:"“My teacher encouraged me.” → “‘Check the denominator,’ she said, and walked away.”",m:"3 daq: 1 ta aniq gapni eslang va kim aytganini yozing."},
+{t:"Raqam bilan yozish",b:"Raqam mavhumlikni aniqlikka aylantiradi: nechta, qancha vaqt, qanchalik.",e:"“I worked hard on it.” → “I rebuilt the chart 14 times over six nights.”",m:"3 daq: kartangizga 2 ta aniq raqam qoʻshing."},
+{t:"Qadriyat izi",b:"Qadriyatni e’lon qilmang, tanlovda koʻrsating: nimadan voz kechdingiz?",e:"“I value honesty.” → “I reported the error, though my score dropped.”",m:"4 daq: oxirgi qiyin tanlovingizni yozing: nima yoʻqotdingiz, nimani saqladingiz."},
+{t:"Hayratlanish lahzasi",b:"Savolni uygʻotgan kuzatuv tadqiqotchi fikrlashning boshlanishi.",e:"“I like statistics.” → “Our bus was late every Thursday, so I started a spreadsheet.”",m:"4 daq: kundalik hayotdagi 1 ta qonuniyatni yozing, sizni hayron qoldirgan."},
+{t:"Kimga foyda?",b:"Qilgan ishingiz boshqa odamga nima berdi? Hamjamiyatga ta’sir aniq odam va natija bilan yoziladi.",e:"“I helped my community.” → “My cousin now checks wheat prices on a sheet I made.”",m:"3 daq: 1 ta odamni va unga bergan foydangizni yozing."},
+{t:"Qiyinchilik, rahm emas",b:"Qiyinchilikni sharoit sifatida yozing: nima cheklangan edi va siz nima yaratdingiz. Rahm soʻramang.",e:"“We had no resources.” → “With one shared laptop, I coded from 5 to 6 a.m. before anyone woke.”",m:"4 daq: cheklovingizni va unga javob boʻlgan harakatingizni yozing."},
+{t:"Oʻzgargan fikr",b:"Kuchli insholar fikr oʻzgargan joyni koʻrsatadi: avval nima deb oʻlagandingiz?",e:"“I realized data matters.” → “I thought averages told the truth, until one outlier flipped my result.”",m:"4 daq: “Avval ... deb oʻlardim, keyin ...” shaklida 2 jumla yozing."},
+{t:"Eng kichik detal",b:"Katta voqea emas, kichik detal ishonchli: stol, ekran, qogʻoz, ovoz.",e:"“I stayed up late coding.” → “The laptop fan hummed; my tea went cold twice.”",m:"3 daq: sahnangizdan 3 ta jismoniy detal yozing."},
+{t:"Karta tanlash",b:"Bir necha kartadan yozayotganda sizni eng koʻp jonlantiradiganini tanlang.",m:"5 daq: 3 kartani 1 jumlada umumlashtiring va qaysi biri koʻproq savol tugʻdirishini belgilang."});
+LS.N.push(
+{t:"Ovozni topish",b:"Namunada ohangni belgilang: kulgili, jiddiy, ehtiyotkor. Sizniki qanday?",m:"4 daq: namunadan 2 jumlani oʻqib, ovozni 1 soʻz bilan ta’riflang."},
+{t:"Burilish qayerda",b:"Yaxshi insho biror joyda fikr yoki holatni oʻzgartiradi. Namunada shu jumlani toping.",m:"3 daq: burilish jumlasini belgilab, nega burilish ekanini yozing."},
+{t:"Jumla ritmi",b:"Uzun jumladan keyingi qisqa jumla zarba beradi. Namunada ritmni kuzating.",e:"“I ran every test I could think of, checked each edge case twice, and still failed. Silence.”",m:"3 daq: namunadan eng qisqa va eng uzun jumlani solishtiring."},
+{t:"Yakun jumlasi",b:"Kuchli yakun xulosani takrorlamaydi, ochiq eshik qoldiradi.",m:"4 daq: 3 ta insho yakunini solishtiring, qaysi biri sizni oʻlantiradi?"},
+{t:"Nusxa emas, usul",b:"Tuzilmani oling, jumlalarni emas. Uni oʻz mavzuingizga koʻchiring.",m:"5 daq: bitta paragrafning tuzilmasini oʻz kartangizga qoʻllang."});
+LS.Q.push(
+{t:"Sahnadan boshlash",b:"Birinchi jumla harakat yoki detal boʻlsin, tushuntirish keyin keladi.",e:"“Data has always fascinated me.” → “At 5:40 a.m., one cell in the spreadsheet refused to be a number.”",m:"3 daq: ochilish jumlasining 3 variantini yozing."},
+{t:"Burilish qurish",b:"Qoralamada bitta joy fikrni oʻzgartirishi kerak: “Lekin”, “keyin tushundimki”.",m:"3 daq: burilish jumlasini oldindan yozing."},
+{t:"Tushunchani qurish",b:"Tushuncha sahnadan chiqishi kerak, tashqaridan yopishtirilmasligi.",e:"“This taught me perseverance.” → “I stopped asking if the model was right and started asking whom it was wrong for.”",m:"3 daq: sahnangizdan 1 ta kutilmagan xulosa chiqaring."},
+{t:"Nega data science",b:"Javob 3 qismdan iborat: savol (shaxsiy), usul (data), maqsad (kelajak).",m:"4 daq: 3 qismni bittadan jumla bilan yozing."},
+{t:"Loyiha → savol",b:"Loyihani tasvirlamang: u qaysi savolga olib kelganini yozing.",e:"“I built a sales dashboard.” → “The dashboard showed Fridays collapsing, and I needed to know why.”",m:"3 daq: loyihangizni “nega?” bilan boshlanadigan savolga aylantiring."},
+{t:"Ortiqcha tushuntirish",b:"Sahnadan keyin tushuntirmang: tushuncha uchun 1–2 jumla yetadi.",m:"3 daq: qoralamangizdan 1 ta ortiqcha tushuntirishni kesing."},
+{t:"650 soʻz byudjeti",b:"Taxminiy taqsimot: ochilish 80, sahna 200, burilish 120, tushuncha 150, kelajak 100.",m:"2 daq: qoralamangizni shu byudjetga solib koʻring."},
+{t:"Ovozni saqlash",b:"Chiroyli, lekin siz aytmaydigan soʻzni oddiy soʻz bilan almashtiring.",m:"3 daq: 1 ta sun’iy jumlani oʻz soʻzlaringiz bilan qayta yozing."},
+{t:"Yomon qoralama huquqi",b:"Birinchi qoralama yomon boʻlishi mumkin. Maqsad: oxirigacha yetish, tahrir keyin.",m:"Butun sessiya: toʻxtamay yozing, orqaga qaytmang."});
+LS.T.push(
+{t:"Zaif iboralar",b:"very, really, a lot, things kabi soʻzlarni aniq narsa bilan almashtiring.",e:"“I learned a lot of things.” → “I learned to test on data I had never touched.”",m:"4 daq: qoralamadan 3 ta zaif iborani toping va almashtiring."},
+{t:"Bir paragraf — bir fikr",b:"Paragrafni oʻqib, ikkita fikr topilsa, ikkiga boʻling.",m:"3 daq: eng uzun paragrafingizni tekshiring."},
+{t:"Ovoz chiqarib oʻqish",b:"Matnni ovoz chiqarib oʻqing: qoqilgan joy tahrir joyi.",m:"4 daq: qoralamani ovoz chiqarib oʻqing va 3 ta qoqilishni belgilang."},
+{t:"Teskari tahrir",b:"Oxirgi jumladan boshlab orqaga oʻqing: jumlalar alohida baholanadi.",m:"5 daq: orqaga oʻqib, 2 ta jumlani kuchaytiring."},
+{t:"48 soat qoidasi",b:"Dam olgan koʻz xatoni koʻradi. Finalist qoralamani 2 kun qoldiring.",m:"3 daq: qaysi qoralamani 2 kunga qoldirishni belgilab, sana qoʻying."});
+LS.S.push(
+{t:"Eng yaxshi jumla",b:"Hafta davomidagi eng yaxshi jumlani tanlang va nega yaxshiligini 1 jumlada yozing.",m:"5 daq."},
+{t:"Tendensiya",b:"Ballaringizni koʻring: qaysi bosqichda pasaydi va sababi nima?",m:"4 daq: Natija sahifasidagi grafikdan 1 ta xulosa yozing."},
+{t:"Feedback rejasi",b:"Hafta oxirida 1 ta qoralamani tashqi feedbackka yuboring.",m:"5 daq: yuboriladigan qoralamani tanlab, soʻrov tayyorlang."},
+{t:"Keyingi hafta maqsadi",b:"Bitta oʻlchanadigan maqsad: “3 ta karta” yoki “1 ta qoralama”.",m:"3 daq: maqsadni Xatolar daftariga yozing."});
+Object.assign(LS.M[0],{e:"“I am a leader.” → “At 11 p.m. I redrew the schedule because three columns did not match.”",m:"4 daq: bugungi kartangiz uchun 1 ta aniq lahza tanlang: qayerda, qachon."});
+Object.assign(LS.M[1],{m:"3 daq: sahnangizga 2 ta sezgi detali qoʻshing (koʻrdim, eshitdim, ushladim)."});
+Object.assign(LS.M[2],{m:"4 daq: 3 savolga bittadan jumla bilan javob yozing."});
+Object.assign(LS.N[0],{m:"4 daq: har paragrafning vazifasini 3–5 soʻz bilan yozing."});
+Object.assign(LS.N[1],{m:"3 daq: ochilish turini belgilang: sahna, savol yoki ta’rif."});
+Object.assign(LS.N[2],{m:"4 daq: namunadan 3 ta aniq harakatni roʻyxatlang."});
+Object.assign(LS.Q[0],{m:"3 daq: asosiy fikrni 1 jumlada yozing, soʻng qoralamani boshlang."});
+Object.assign(LS.Q[1],{m:"3 daq: “Men ... xohlardim, lekin ...” shaklida ziddiyatni yozing."});
+Object.assign(LS.Q[2],{e:"“I love data science.” → “The question I asked a bus timetable is the one I now ask datasets.”",m:"4 daq: hikoyangizdagi savolni 1 ta data savoliga aylantiring."});
+Object.assign(LS.T[0],{e:"“There is a lot of noise very often.” → “Noise appeared in every third reading.”",m:"4 daq: 2 jumlani kesib, ma’nosi oʻzgarmaganini tekshiring."});
+Object.assign(LS.T[1],{m:"3 daq: passiv jumlani toping va faol shaklga oʻtkazing."});
+Object.assign(LS.T[2],{m:"3 daq: feedback uchun 3 savolni yozib qoʻying."});
+Object.assign(LS.S[0],{m:"4 daq: bugungi sessiyangiz uchun ball + 1 ta dalil yozing."});
+Object.assign(LS.S[1],{m:"3 daq: Xatolar daftaridan 1 ta takrorlanayotgan xatoni tanlang."});
+const EX=[[3,"MIT Admissions: How to write a college essay","https://mitadmissions.org/blogs/entry/how-to-write-a-college-essay/","MIT qabul jamoasidan insho yozish qoʻllanmasi. Oʻqing, 3 ta fikrni Xatolar daftariga koʻchiring."],[13,"MIT Admissions: Advice on the essay","https://mitadmissions.org/blogs/entry/advice_on_the_essay/","Insho haqida yana bir MIT maslahati. Oʻz inshongiz bilan solishtiring."],[23,"Common App: insho mavzulari","https://www.commonapp.org/apply/essay-prompts","Rasmiy mavzular roʻyxati. Qaysi kartangiz qaysi mavzuga mosligini belgilang."],[33,"Orwell: Politics and the English Language","https://www.orwellfoundation.com/the-orwell-foundation/orwell/essays-and-other-works/politics-and-the-english-language/","Aniq yozuvning klassik asosi (oʻqish ~27 daqiqa). 6 qoidasini Xatolar daftariga yozing."],[43,"Stanford: Writing in the Sciences (Coursera)","https://www.coursera.org/learn/sciwrite/","Ilmiy va aniq yozuv kursi. 1-haftadagi “ortiqcha soʻzni kesish” bobidan boshlang."],[53,"College Board: insho boʻyicha maslahatlar","https://counselors.collegeboard.org/college-application/essay","Insho tuzilishi va tekshiruv roʻyxati."],[63,"Emory Admission: mazmunli personal statement","https://blog.emoryadmission.com/2025/10/how-to-write-a-meaningful-personal-statement/","Qabul jamoasi nigohi: nima mazmunli insho qiladi."],[73,"MIT OGE: personal statement yozish","https://oge.mit.edu/how-to-craft-a-personal-statement/","Magistratura/SOP uchun MIT qoʻllanmasi."],[83,"College Board: college essay tips","https://blog.collegeboard.org/college-essay-tips","Yakuniy tahrir uchun amaliy maslahatlar."],[93,"Kaggle Learn","https://www.kaggle.com/learn","Data science loyihasi — yangi Material kartasi manbasi. Bitta mini-kursni tugating va lahza yozing."]];
+const CH=["passionate","journey","make a difference","since i was young","very","really","a lot","things","stuff","amazing","i think","in conclusion","always dreamed","changed my life"];
+const wc=t=>(t.match(/\S+/g)||[]).length;
+function ana(t){const s=t.split(/[.!?]+/).filter(x=>x.trim()),w=t.toLowerCase().match(/[a-z'’]+/g)||[],lc=t.toLowerCase();return{w:w.length,sl:s.length?Math.round(w.length/s.length):0,div:w.length?Math.round(new Set(w).size/w.length*100):0,hits:CH.filter(c=>lc.includes(c)),pas:(t.match(/\b(was|were|been|is|are|be)\s+\w+ed\b/gi)||[]).length,nums:(t.match(/\d+/g)||[]).length,st:struct(t)}}
+function struct(t){
+ const n=wc(t);if(n<40)return["Tuzilma tahlili uchun kamida 40 soʻz yozing."];
+ const s=(t.match(/[^.!?]+[.!?]*/g)||[]).map(x=>x.trim()).filter(Boolean),f=s[0]||"",l=s[s.length-1]||"",o=[],ok=m=>o.push("✓ "+m),no=m=>o.push("⚠ "+m);
+ if(/^(since|ever since|from a young age|i have always|i've always|growing up|data science is|in today|throughout my life|as long as i can remember)/i.test(f))no("Ochilish umumiy. Uni aniq sahna yoki detalga almashtiring.");
+ else if(/\d|["“]/.test(f)||/^(at|on|when|one|last)\b/i.test(f))ok("Ochilish sahna yoki detalga oʻxshaydi.");
+ else no("Ochilish neytral: aniq sahna yoki detal bilan boshlashni sinab koʻring.");
+ const m=/\b(but|however|until|yet|instead|suddenly|realized|realised|that was when)\b/i.exec(t);
+ if(!m)no("Burilish nuqtasi topilmadi (but, until, realized kabi). Fikr qayerda oʻzgardi?");
+ else{const p=Math.round(m.index/t.length*100);p>=20&&p<=80?ok("Burilish nuqtasi ~"+p+"% da."):no("Burilish chetda (~"+p+"%). Uni matn oʻrtasiga yaqinlashtiring.")}
+ /(realized|realised|learned|understood|taught me|now i|i now|made me)/i.test(t.slice(Math.floor(t.length*.55)))?ok("Oxirgi qismda tushuncha bor."):no("Oxirgi qismda tushuncha jumlasi yoʻq: nimani tushundingiz?");
+ /(data|dataset|model|statistic|analy|algorithm|machine learning|predict)/i.test(t.slice(Math.floor(t.length*.65)))?ok("Data science koʻprigi oxirida bor."):no("Oxirida data science koʻprigi sezilmayapti.");
+ /^(in conclusion|to conclude|in the end|i am excited|i look forward|this experience|overall)/i.test(l)?no("Yakun klishe. Ochiq savol yoki kelajak harakati bilan almashtiring."):ok("Yakun klishe emas.");
+ if(n>200&&t.split(/\n\s*\n/).filter(x=>x.trim()).length<2)no("Bitta uzun blok: paragraflarga boʻling.");
+ if(n>650)no("650 soʻz chegarasidan "+(n-650)+" soʻzga oshdi.");
+ return o;
+}
+function anaTxt(a){const tp=[];if(a.sl>25)tp.push("Jumlalar uzun (oʻrtacha "+a.sl+" soʻz): bittasini ikkiga boʻling.");if(a.hits.length)tp.push("Zaif iboralar: "+a.hits.join(", ")+". Ularni aniq detalga almashtiring.");if(a.pas>2)tp.push("Passiv shakllar koʻp ("+a.pas+"): faol fe’l ishlating.");if(!a.nums)tp.push("Raqam yoki aniq detal yoʻq: bittasini qoʻshing.");if(!tp.length)tp.push("Yaxshi: jumlalar ixcham, aniq detal bor.");return"Soʻz "+a.w+" · jumla uzunligi "+a.sl+" · xilma-xillik "+a.div+"% · raqamlar "+a.nums+"<br>"+tp.join("<br>")+(a.st?"<br><b>Tuzilma:</b><br>"+a.st.join("<br>"):"")}
+const lesson=i=>{const m=plan(i).m,a=LS[m];let n=0;for(let j=0;j<i;j++)if(plan(j).m===m)n++;return a[n%a.length]};
+function cell(i,big){
+ const p=plan(i),t=tIdx(),d=done(i),x=S.days[i]||{};
+ const sty=d?"background:"+CL[p.m]+";color:#fff;border-color:"+CL[p.m]+(big?"":";opacity:"+(x.s?.35+x.s*.065:1)):(i<t?"border-style:dashed":"");
+ return'<button class="c'+(i===t?" now":"")+(i===sel?" sel":"")+'" style="'+sty+'" onclick="go('+i+')" aria-label="Kun '+(i+1)+', '+MN[p.m]+(d?", bajarilgan":"")+'">'+(big?WS[p.wd]+"<b>"+p.m+"</b>":"")+"</button>";
+}
+function stats(){
+ const t=tIdx(),sm={M:[0,0],N:[0,0],Q:[0,0],T:[0,0],S:[0,0]},bm={M:0,N:0,Q:0,T:0,S:0},ss=[];let n=0,w=0,last=-1,sum=0;
+ for(let i=0;i<100;i++)if(done(i)){const x=S.days[i],m=plan(i).m;n++;w+=+x.w||0;bm[m]++;last=i;if(x.s){ss.push([i,x.s]);sm[m][0]+=x.s;sm[m][1]++;sum+=x.s}}
+ let e=Math.min(t,99);if(!done(e))e--;let sk=0;while(e>=0&&done(e)){sk++;e--}
+ const wkn=[];for(let k=0;k<15;k++){let c=0,tot=0;for(let i=k*7;i<Math.min(100,k*7+7);i++){tot++;if(done(i))c++}wkn.push([c,tot])}
+ return{n,w,bm,sm,sk,gap:t-last,t,wkn,last,ss,avg:ss.length?sum/ss.length:0,eff:Math.round(sum/Math.max(1,Math.min(t+1,100))*10)};
+}
+function advice(s){
+ const a=[],cw=s.t>=0?Math.min(Math.floor(s.t/7),14):0,wk=s.wkn[cw],l3=s.ss.slice(-3),l5=s.ss.slice(-5),av=q=>q.reduce((x,y)=>x+y[1],0)/q.length;
+ if(s.t<0)a.push("Reja "+(-s.t)+" kundan keyin boshlanadi. Boshlanish sanasini Natija sahifasida oʻzgartirishingiz mumkin.");
+ else if(s.n===0)a.push("Birinchi qadam: 1-kun baseline inshosi. 25 daqiqa, tahrirsiz. Shu matn keyin oʻlchov nuqtangiz boʻladi.");
+ else{
+  if(s.gap>=3)a.push(s.gap+" kun tanaffus boʻldi. Qaytish uchun toʻliq sessiya shart emas: 10 daqiqalik minimal versiya bilan boshlang.");
+  else if(s.sk>=7)a.push(s.sk+" kunlik zanjir. Endi sifatga oʻting: har sessiyada bitta jumlani 20% qisqartiring.");
+  if(l3.length===3&&av(l3)<5)a.push("Oxirgi 3 sessiya oʻrtachasi "+av(l3).toFixed(1)+". Sababini Xatolar daftariga yozing va sessiyani 15 daqiqaga qisqartirib sifatga qayting.");
+  if(l5.length===5&&av(l5)>=8)a.push("Oxirgi 5 sessiya oʻrtachasi "+av(l5).toFixed(1)+". Mushkillikni oshiring: matnni 20% qisqartirib yozing yoki tashqi feedback oling.");
+  const wm=Object.keys(s.sm).filter(k=>s.sm[k][1]>=2).sort((x,y)=>s.sm[x][0]/s.sm[x][1]-s.sm[y][0]/s.sm[y][1])[0];
+  if(wm&&s.sm[wm][0]/s.sm[wm][1]<s.avg-1.2)a.push("Eng zaif bosqich: "+MN[wm]+" (oʻrt. "+(s.sm[wm][0]/s.sm[wm][1]).toFixed(1)+"). Shu bosqich darsini qayta oʻqing.");
+  if(s.t>=7&&wk&&wk[0]/Math.max(1,Math.min(wk[1],s.t-cw*7+1))<.5)a.push("Bu hafta bajarilish 50% dan past. Sessiyani kundalik bitta qat’iy vaqtga bogʻlang.");
+  if(s.bm.Q>=3&&s.bm.T<s.bm.Q/2)a.push("Qoralamalar koʻp, tahrir kam. Eng yaxshi qoralamani tashqi odamga yuboring.");
+  if(s.bm.M<3&&s.n>=6)a.push("Material kartalari kam. Haqiqiy loyiha yoki savoldan 1 ta karta qoʻshing.");
+ }
+ if(!a.length)a.push("Yaxshi sur’at. Bugungi sessiyani bajaring va Xatolar daftariga 1 qator yozing.");
+ return a.slice(0,4);
+}
+function inp(){const x=S.days[sel]=S.days[sel]||{};x.x=$("#x").value;x.w=wc(x.x);x.l=$("#lg").value;const c=$("#wc");if(c)c.textContent=x.w;save()}
+function setS(n){inp();S.days[sel].s=n;save();render()}
+function fin(){inp();const x=S.days[sel];if(!x.s){$("#msg").textContent="Avval ballni tanlang: 1 dan 10 gacha.";return}x.d=true;x.t=Date.now();save();render()}
+function unf(){inp();S.days[sel].d=false;save();render()}
+function an(){inp();const t=S.days[sel].x||"";$("#an").innerHTML=t.trim()?anaTxt(ana(t)):"Avval matn yozing."}
+function vToday(){
+ const p=plan(sel),x=S.days[sel]||{},ls=lesson(sel),ex=EX.find(e=>e[0]===sel);
+ let h='<div class="card"><div class="top"><div><div class="mut">Kun '+(sel+1)+"/100 · "+WD[p.wd]+", "+p.ds+"</div><h2>"+p.title+'</h2></div><span class="chip" style="background:'+CL[p.m]+'">'+MN[p.m]+"</span></div><blockquote>"+p.pr+'</blockquote><ol class="steps">'+p.st.map(s=>"<li><b>"+s[0]+" daq</b> "+s[1]+"</li>").join("")+"</ol></div>";
+ h+='<div class="card"><div class="mut">Bugungi dars</div><h3>'+ls.t+'</h3><p style="margin:6px 0 0">'+ls.b+"</p>"+lsx(ls)+"</div>";
+ if(ex)h+='<div class="card"><div class="mut">Tashqi resurs (tanlangan, ishonchli manba)</div><h3><a href="'+ex[2]+'" target="_blank" rel="noopener noreferrer" style="color:var(--ac)">'+ex[1]+'</a></h3><p style="margin:6px 0 0">'+ex[3]+"</p></div>";
+ h+='<div class="card tm"><h3>Taymer</h3><div id="tt">25:00</div><div id="tp"></div><div class="row" style="justify-content:center"><button class="pri" id="tb" onclick="tStart()">Boshlash</button><button onclick="tReset()">Qayta</button></div></div>';
+ h+='<div class="card"><h3>Yozuv (Bankka saqlanadi)</h3><label for="x">Matn · <span id="wc">'+(x.w||0)+'</span> soʻz</label><textarea id="x" rows="8">'+esc(x.x||"")+'</textarea><div class="row"><button onclick="an()">Matnni tahlil qilish</button></div><div id="an" class="mut" style="margin-top:8px"></div><label for="lg">Xatolar daftari: bugungi 1 ta xato yoki maqsad</label><input id="lg" maxlength="140" value="'+esc(x.l||"")+'"></div>';
+ h+='<div class="card"><h3>Ball (1–10)</h3><div class="sc">'+[1,2,3,4,5,6,7,8,9,10].map(n=>'<button class="'+(x.s===n?"s2":"")+'" onclick="setS('+n+')">'+n+"</button>").join("")+'</div><div class="adv" style="margin-top:10px">'+(x.s?"<b>"+x.s+":</b> "+RB[x.s-1]:"Bugungi sessiyani halol baholang. Tanlangan ballning izohi shu yerda chiqadi.")+'</div><details><summary class="mut">Barcha ballar izohi</summary>'+RB.map((r,k)=>'<div class="mut"><b>'+(k+1)+":</b> "+r+"</div>").join("")+'</details><div id="msg" class="mut"></div><div class="row"><button class="'+(x.d?"":"ok")+'" onclick="'+(x.d?"unf()":"fin()")+'">'+(x.d?"Bajarilgan ✓ (bekor qilish)":"Kunni yakunlash")+"</button></div></div>";
+ h+=fbCard(x);
+ if(x.d&&x.s)h+='<div class="card"><h3>Javob</h3><div class="adv">'+TIER[x.s<=3?0:x.s<=5?1:x.s<=7?2:3]+"</div>"+(x.s<=6?'<div class="adv">'+MT[p.m]+"</div>":"")+(x.x&&x.x.trim()?'<div class="adv">'+anaTxt(ana(x.x))+"</div>":"")+"</div>";
+ return h+'<div class="row" style="justify-content:space-between"><button '+(sel<1?"disabled":"")+' onclick="go(sel-1)">‹ Oldingi kun</button><button '+(sel>98?"disabled":"")+' onclick="go(sel+1)">Keyingi kun ›</button></div>';
+}
+function fbPrompt(i){const p=plan(i),x=S.days[i]||{};return"Sen top universitetlarning tajribali admission officer’isan. Quyidagi yozuvni halol baholab ber (maqtov uchun ball oshirma).\n\nKontekst: Writing BS, kun "+(i+1)+", bosqich: "+MN[p.m]+". Vazifa: "+p.pr+" Oʻzimga qoʻygan ball: "+(x.s||"–")+"/10. Soʻz soni: "+(x.w||0)+".\n\nJavob formati:\n1) Umumiy ball: N/10 va 1–2 jumla dalil\n2) 5 mezon (1–4): aniqlik, tushuncha, ovoz, ixchamlik, tuzilma\n3) Eng kuchli jumla va nima uchun\n4) Eng zaif joy va uni qayta yozib koʻrsat\n5) Keyingi sessiya uchun 1 ta maqsad\n\nMATN:\n"+(x.x||"")}
+function fbMake(){inp();const t=$("#fbp");t.value=fbPrompt(sel);t.style.display="block"}
+function fbCopy(){fbMake();const t=$("#fbp"),m=$("#fbm");t.select();const ok=()=>{m.textContent="Nusxalandi. Endi Claude’ga yuboring."},no=()=>{try{if(document.execCommand("copy"))return ok()}catch(e){}m.textContent="Matn belgilandi: uzoq bosib “Copy” ni tanlang."};try{navigator.clipboard.writeText(t.value).then(ok,no)}catch(e){no()}}
+function setE(v){inp();const n=Math.round(+v);S.days[sel].e=n>=1&&n<=10?n:undefined;save();render()}
+function fbCard(x){
+ if(!x.x||!x.x.trim())return'<div class="card"><h3>Tashqi feedback</h3><div class="mut">Avval matn yozing: feedback soʻrovi shu matndan tayyorlanadi.</div></div>';
+ const g=x.s&&x.e?x.s-x.e:null;
+ return'<div class="card"><h3>Tashqi feedback</h3><div class="mut">1) Soʻrovni tayyorlang. 2) Nusxalab, Claude’ga yuboring. 3) Javobdagi umumiy ballni pastga kiriting.</div><div class="row"><button onclick="fbMake()">Soʻrovni tayyorlash</button><button onclick="fbCopy()">Nusxalash</button></div><textarea id="fbp" rows="6" readonly style="display:none;margin-top:8px"></textarea><div id="fbm" class="mut"></div><label for="ex">Tashqi ball (1–10)</label><input id="ex" type="number" min="1" max="10" inputmode="numeric" value="'+esc(x.e||"")+'" onchange="setE(this.value)">'+(g!==null?'<div class="adv" style="margin-top:8px">Farq: '+(g>0?"+":"")+g+(g>1?" — oʻzingizni yuqoriroq baholadingiz.":g<-1?" — oʻzingizni qattiqroq baholadingiz.":" — baholashingiz aniq.")+"</div>":"")+"</div>";
+}
+function calCard(){
+ const g=[];for(let i=0;i<100;i++){const x=S.days[i];if(x&&x.s&&x.e)g.push(x.s-x.e)}
+ const h='<div class="card"><h3>Baholash aniqligi</h3>';
+ if(!g.length)return h+'<div class="mut">Tashqi ball hali yoʻq. Qoralamani feedbackka yuboring va javobdagi ballni kun sahifasiga kiriting.</div></div>';
+ const b=g.reduce((q,v)=>q+v,0)/g.length,m=g.reduce((q,v)=>q+Math.abs(v),0)/g.length;
+ return h+'<div class="stats" style="grid-template-columns:repeat(3,1fr)"><div><b>'+g.length+'</b>solishtirish</div><div><b>'+m.toFixed(1)+'</b>oʻrt. farq</div><div><b>'+(b>0?"+":"")+b.toFixed(1)+'</b>moyillik</div></div><div class="adv">'+(b>=1.5?"Oʻzingizni tashqi bahodan yuqori baholayapsiz. Ball qoʻyishdan oldin 1 ta dalil jumla yozing.":b<=-1.5?"Oʻzingizni haddan tashqari qattiq baholayapsiz. Yutuqlaringizni ham dalil bilan yozing.":"Baholashingiz tashqi baho bilan yaxshi mos keladi.")+"</div></div>";
+}
+function bkInfo(){const d=S.bk?Math.floor((Date.now()-S.bk)/864e5):null;return d===null?"Hali zaxira olinmagan. Haftada kamida bir marta oling.":"Oxirgi zaxira: "+(d?d+" kun oldin":"bugun")+(d>=7?". Yangilash vaqti keldi.":".")}
+function bkNote(m){const e=$("#bkm");if(e)e.textContent=m}
+function bkCopy(){S.bk=Date.now();save();const t=$("#bk");t.value=JSON.stringify(S);t.select();const ok=()=>bkNote("Zaxira nusxalandi. Uni xavfsiz joyga (Notes, email) saqlang."),no=()=>{try{if(document.execCommand("copy"))return ok()}catch(e){}bkNote("Matn belgilandi: uzoq bosib “Copy” ni tanlang.")};try{navigator.clipboard.writeText(t.value).then(ok,no)}catch(e){no()}}
+function bkFile(){S.bk=Date.now();save();try{const b=new Blob([JSON.stringify(S)],{type:"application/json"}),a=document.createElement("a");a.href=URL.createObjectURL(b);a.download="writing-bs-backup-"+iso(new Date())+".json";document.body.appendChild(a);a.click();a.remove();bkNote("Fayl yuklab olindi. Saqlanmasa, “Nusxalash” tugmasidan foydalaning.")}catch(e){bkNote("Fayl saqlash bu muhitda ishlamadi. “Nusxalash” tugmasidan foydalaning.")}}
+function bkLoad(el){const f=el.files&&el.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{try{const o=JSON.parse(r.result);if(!o||!o.start||typeof o.days!=="object")throw 0;S=o;save();render()}catch(e){bkNote("Fayl formati notoʻgʻri.")}};r.readAsText(f)}
+let bf="";
+function vBank(){
+ const rows=[];for(let i=0;i<100;i++){const x=S.days[i];if(x&&x.x&&x.x.trim())rows.push(i)}
+ const f=bf?rows.filter(i=>plan(i).m===bf):rows;
+ let h='<div class="row" style="margin:0 0 12px">'+["",...Object.keys(MN)].map(k=>'<button class="'+(bf===k?"s2":"")+'" onclick="bf=\''+k+'\';render()">'+(k?MN[k]:"Hammasi")+"</button>").join("")+"</div>";
+ const cm=[0,49,99].filter(i=>rows.includes(i));
+ if(cm.length>1)h+='<div class="card"><h3>Baseline taqqoslash</h3>'+cm.map(i=>{const a=ana(S.days[i].x);return'<div class="adv"><b>Kun '+(i+1)+":</b> "+a.w+" soʻz · jumla "+a.sl+" · xilma-xillik "+a.div+"% · zaif iboralar "+a.hits.length+"</div>"}).join("")+"</div>";
+ h+=f.length?f.map(i=>{const x=S.days[i],p=plan(i);return'<button class="bk" onclick="go('+i+')"><span class="chip" style="background:'+CL[p.m]+'">'+p.m+"</span> <b>Kun "+(i+1)+"</b> · "+x.w+" soʻz"+(x.s?" · ball "+x.s:"")+'<br><span class="mut">'+esc(x.x.slice(0,110))+"…</span></button>"}).join(""):'<div class="mut">Hozircha yozuv yoʻq. Bugungi sessiyada matn yozing, u shu yerda toʻplanadi.</div>';
+ h+='<details class="card"><summary><b>Darslar kutubxonasi</b></summary>'+Object.keys(LS).map(k=>'<h3 style="margin:12px 0 4px;color:'+CL[k]+'">'+MN[k]+"</h3>"+LS[k].map(l=>"<p style=\"margin:4px 0\"><b>"+l.t+":</b> "+l.b+"</p>"+lsx(l)).join("")).join("")+"</details>";
+ h+='<div class="card"><h3>Tashqi resurslar (10 ta)</h3>'+EX.map(e=>'<p style="margin:6px 0"><a href="'+e[2]+'" target="_blank" rel="noopener noreferrer" style="color:var(--ac)">'+e[1]+'</a> <span class="mut">· kun '+(e[0]+1)+"</span></p>").join("")+"</div>";
+ return h;
+}
+function vStats(){
+ const s=stats();
+ const G=[["Gate 1: 20 ta material kartasi",s.bm.M/20],["Gate 2: 5 ta feedback bilan tahrir",s.bm.T/5],["Gate 3: 4 ta DS/finalist qurish sessiyasi",(()=>{let c=0;for(let i=63;i<100;i++)if(done(i)&&plan(i).m==="Q")c++;return c/4})()]];
+ let bars="";s.wkn.forEach((w,k)=>{const hh=w[0]/w[1]*60;bars+='<rect x="'+(k*20+4)+'" y="'+(70-hh)+'" width="14" height="'+hh+'" rx="3" fill="var(--ac)"/><text x="'+(k*20+11)+'" y="82" text-anchor="middle">'+(k+1)+"</text>"});
+ let g="";for(let i=0;i<100;i++)g+=cell(i,0);
+ const pts=s.ss.map(a=>'<circle cx="'+(a[0]*3+2)+'" cy="'+(100-a[1]*9)+'" r="2" fill="var(--mut)"/>').join("");
+ const ma=s.ss.map((a,k)=>{const sl=s.ss.slice(Math.max(0,k-6),k+1);return(a[0]*3+2)+","+(100-sl.reduce((q,b)=>q+b[1],0)/sl.length*9)}).join(" ");
+ const mx=Math.max(1,...Object.values(s.bm));
+ return'<div class="stats"><div><b>'+s.n+"</b>kun</div><div><b>"+s.sk+"</b>zanjir</div><div><b>"+(s.avg?s.avg.toFixed(1):"–")+"</b>oʻrt. ball</div><div><b>"+s.eff+"</b>samara</div></div>"+
+ '<div class="card"><h3 style="margin-bottom:8px">Maslahat</h3>'+advice(s).map(a=>'<div class="adv">'+a+"</div>").join("")+"</div>"+
+ '<div class="card"><h3 style="margin-bottom:8px">100 kunlik xarita</h3><div class="grid">'+g+'</div><div class="mut" style="margin-top:6px">Rang — bosqich turi, toʻqlik — ball.</div></div>'+
+ '<div class="card"><h3>Ball dinamikasi</h3>'+(s.ss.length?'<svg viewBox="0 0 304 108" width="100%" role="img" aria-label="Ballar grafigi">'+pts+'<polyline points="'+ma+'" fill="none" stroke="var(--ac)" stroke-width="2.5"/><text x="2" y="106">1-kun</text><text x="302" y="106" text-anchor="end">100-kun</text></svg><div class="mut">Koʻk chiziq — 7 sessiyalik oʻrtacha.</div>':'<div class="mut">Birinchi ball qoʻyilgach grafik paydo boʻladi.</div>')+"</div>"+
+ '<div class="card"><h3>Haftalik bajarilish</h3><svg viewBox="0 0 304 88" width="100%" role="img" aria-label="Haftalik bajarilgan kunlar">'+bars+"</svg></div>"+
+ '<div class="card"><h3 style="margin-bottom:8px">Bosqichlar boʻyicha oʻrtacha ball</h3>'+Object.keys(MN).map(k=>{const q=s.sm[k],av=q[1]?q[0]/q[1]:0;return'<div class="mut">'+MN[k]+" · "+s.bm[k]+" kun · "+(q[1]?av.toFixed(1):"–")+'</div><div class="bar"><i style="width:'+av*10+"%;background:"+CL[k]+'"></i></div>'}).join("")+"</div>"+
+ '<div class="card"><h3 style="margin-bottom:8px">Gate’lar</h3>'+G.map(x=>'<div class="mut">'+x[0]+" · "+Math.round(Math.min(1,x[1])*100)+'%</div><div class="bar"><i style="width:'+Math.min(1,x[1])*100+'%"></i></div>').join("")+"</div>"+
+ calCard()+'<div class="card"><h3>Sozlamalar</h3><label for="sd">Boshlanish sanasi</label><input id="sd" type="date" value="'+S.start+'" onchange="S.start=this.value||S.start;save();sel=Math.min(Math.max(tIdx(),0),99);render()"><label for="bk">Zaxira nusxa</label><div class="mut" id="bkm">'+bkInfo()+'</div><textarea id="bk" rows="4">'+esc(JSON.stringify(S))+'</textarea><div class="row"><button onclick="bkCopy()">Nusxalash</button><button onclick="bkFile()">Faylga saqlash</button><button onclick="imp()">Matndan tiklash</button></div><label for="bf">Fayldan tiklash (.json)</label><input id="bf" type="file" accept="application/json,.json" onchange="bkLoad(this)"><div class="row"><button onclick="rst()" id="rb">Hammasini oʻchirish</button></div></div>';
+}
+function render(){
+ const s=stats();
+ $("#kp").innerHTML="<b>"+s.sk+"</b> kunlik zanjir<br>"+s.n+"/100 bajarilgan";
+ $("#app").innerHTML=view==="today"?vToday():view==="plan"?vPlan():view==="bank"?vBank():vStats();
+ $("#tabs").innerHTML=[["today","Bugun"],["plan","Reja"],["bank","Bank"],["stats","Natija"]].map(t=>'<button class="'+(view===t[0]?"on":"")+'" onclick="view=\''+t[0]+'\';rs=0;render();window.scrollTo(0,0)">'+t[1]+"</button>").join("");
+ if(view==="today"){$("#x").oninput=inp;$("#lg").oninput=inp;tick()}
+}
+save();render();
+if("serviceWorker" in navigator)addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}));
+let dp;addEventListener("beforeinstallprompt",e=>{e.preventDefault();dp=e;const x=document.createElement("button");x.textContent="Ilovani oʻrnatish";x.style.cssText="position:fixed;top:calc(env(safe-area-inset-top,0px) + 8px);right:8px;z-index:9;background:#ffd23f;color:#14213d;border:0;border-radius:10px;padding:8px 12px;font:700 14px Manrope,sans-serif;min-height:40px";x.onclick=()=>{dp.prompt();dp.userChoice.finally(()=>x.remove())};document.body.appendChild(x)});
+</script></body></html>

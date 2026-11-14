@@ -1,0 +1,35 @@
+<!DOCTYPE html><html lang="uz"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Writing BS tekshiruv</title><link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#14213d">
+<style>body{font:16px/1.5 system-ui,sans-serif;margin:0;padding:16px;background:#f3f5f9;color:#14213d}@media(prefers-color-scheme:dark){body{background:#0e1528;color:#eef1f8}}h1{font-size:22px}.r{padding:8px 10px;margin:6px 0;border-radius:8px;border-left:5px solid #999;background:rgba(127,127,127,.12);word-break:break-word}.ok{border-color:#12a37f}.no{border-color:#e5484d}.w{border-color:#e08a00}button{font:inherit;font-weight:700;padding:12px 16px;border-radius:10px;border:0;background:#ffd23f;color:#14213d;margin:8px 0}button:disabled{opacity:.4}</style></head><body>
+<h1>Writing BS: oʻrnatish tekshiruvi</h1><div id="o"></div>
+<div class="r" id="ev">beforeinstallprompt: kutilmoqda…</div><button id="b" disabled>Ilovani oʻrnatish</button>
+<script>
+const o=document.getElementById("o"),ev=document.getElementById("ev"),b=document.getElementById("b");let dp=null;
+const add=(c,m)=>{const d=document.createElement("div");d.className="r "+c;d.textContent=(c==="ok"?"✓ ":c==="no"?"✗ ":"! ")+m;o.appendChild(d)};
+addEventListener("beforeinstallprompt",e=>{e.preventDefault();dp=e;b.disabled=false;ev.className="r ok";ev.textContent="✓ Brauzer ilovani oʻrnatishga tayyor deb topdi. Pastdagi tugmani bosing."});
+b.onclick=()=>{if(dp)dp.prompt()};
+setTimeout(()=>{if(!dp){ev.className="r no";ev.textContent="✗ Brauzer oʻrnatish taklifini bermadi (beforeinstallprompt kelmadi). Yuqoridagi ✗ qatorlarga qarang."}},6000);
+(async()=>{
+ const ua=navigator.userAgent;
+ add(location.protocol==="https:"?"ok":"no","HTTPS: "+location.protocol);
+ const inapp=/Telegram|Instagram|FBAN|FBAV|Line\/|; wv\)/i.test(ua);
+ add(inapp?"no":"ok",inapp?"Ichki brauzer (Telegram/Instagram/WebView) aniqlandi: havolani Chrome’da oching.":"Oddiy brauzer");
+ const chrome=/Chrome\//.test(ua)&&!/SamsungBrowser|OPR\/|YaBrowser|EdgA|UCBrowser/.test(ua);
+ add(chrome?"ok":"w","Brauzer: "+(chrome?"Chrome":ua.slice(0,90)+" (Chrome tavsiya etiladi)"));
+ const sa=matchMedia("(display-mode: standalone)").matches;
+ add(sa?"w":"ok","Rejim: "+(sa?"allaqachon ilova sifatida ochilgan":"brauzerda"));
+ try{
+  const r=await fetch("manifest.webmanifest",{cache:"no-store"});
+  add(r.ok?"ok":"no","manifest.webmanifest: HTTP "+r.status+" ("+(r.headers.get("content-type")||"?")+")");
+  const m=await r.json();
+  add(m.name||m.short_name?"ok":"no","name: "+(m.name||"yoʻq"));
+  add(/standalone|fullscreen|minimal-ui/.test(m.display)?"ok":"no","display: "+m.display);
+  add(m.start_url?"ok":"no","start_url: "+m.start_url);
+  add(m.prefer_related_applications?"no":"ok","prefer_related_applications: "+!!m.prefer_related_applications);
+  for(const ic of m.icons||[]){await new Promise(res=>{const i=new Image();i.onload=()=>{const w=parseInt(ic.sizes,10);add(i.naturalWidth>=w?"ok":"no","ikonka "+ic.src+" ("+(ic.purpose||"any")+"): haqiqiy "+i.naturalWidth+"px, eʼlon "+ic.sizes);res()};i.onerror=()=>{add("no","ikonka yuklanmadi: "+ic.src);res()};i.src=new URL(ic.src,location.href).href})}
+  const has=n=>(m.icons||[]).some(i=>i.sizes===n&&i.type==="image/png"&&(!i.purpose||/any/.test(i.purpose)));
+  const h=has("192x192")&&has("512x512");
+  add(h?"ok":"no","PNG 192 va 512 (purpose any): "+(h?"bor":"yetishmaydi"));
+ }catch(e){add("no","manifest oʻqilmadi: "+e.message)}
+ try{const rg=await navigator.serviceWorker.register("sw.js");add("ok","service worker roʻyxatdan oʻtdi: "+rg.scope)}catch(e){add("no","service worker xatosi: "+e.message)}
+})();
+</script></body></html>
